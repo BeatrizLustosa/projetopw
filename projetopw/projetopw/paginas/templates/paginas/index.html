@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block titulo %}
+    <title> MUSIC-IA </title>
+    {% endblock titulo %}
+
+    <link rel = "stylesheet" href = "{% static 'css/estilo.css' %}">
+    
+</head>
+<body>
+    <h4>Menu Superior</h4>
+    <ul>
+        <li>
+            <a href = "{% url "index" %}">Início</a>
+        </li>
+
+        <li>
+            <a href = "{% url "sobre" %}">Sobre Nós</a>
+        </li>
+
+    </ul>
+
+    {%   block conteudo   %}
+
+    {%   endblock   %}
+
+    <p>
+        Desenvolvido Por Beatriz Oliveira Lustosa
+    </p>
+</body>
+</html>
