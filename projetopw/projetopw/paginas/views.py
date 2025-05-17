@@ -53,7 +53,7 @@ class ShowCreate(CreateView):
 ###############################################
 #UPDATE
 
-class MidiaUpdade(UpdateView):
+class MidiaUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Midia
     fields = ['foto_perfil', 'divulgacao_cantor', 'divulgacao_show']

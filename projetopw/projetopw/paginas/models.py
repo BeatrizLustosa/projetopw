@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 class Midia(models.Model):
     foto_perfil =  models.URLField(max_length=255)
     divulgacao_cantor = models.URLField(max_length=255)
