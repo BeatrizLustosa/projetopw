@@ -46,7 +46,7 @@ class PerfilCantorCreate(CreateView):
 class ShowCreate(CreateView):
     template_name = 'paginas/form.html'
     model = Show
-    fields = ['data', 'hora', 'local', 'tipo_show', 'foto_show']
+    fields = ['nome', 'data', 'hora', 'local', 'tipo_show', 'foto_show']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastro Do Show',
                      'botao' : 'Salvar'}
@@ -88,9 +88,34 @@ class PerfilCantorUpdate(UpdateView):
 class ShowUpdate(UpdateView):
     template_name = 'paginas/form.html'
     model = Show
-    fields = ['data', 'hora', 'local', 'tipo_show', 'foto_show']
+    fields = ['nome', 'data', 'hora', 'local', 'tipo_show', 'foto_show']
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Atualização Do Show',
                      'botao' : 'Salvar'}
 ##################################################
 #DELETE
+class MidiaDelete(DeleteView):
+    model = Midia
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('index')
+
+class LocalDelete(DeleteView):
+    model = Local
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('index')
+
+class TipoShowDelete(DeleteView):
+    model = TipoShow
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('index')
+
+class PerfilCantorDelete(DeleteView):
+    model = PerfilCantor
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('index')
+
+class ShowDelete(DeleteView):
+    model = Show
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('index')
+

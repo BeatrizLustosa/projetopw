@@ -3,7 +3,8 @@ from django.urls import path
 from .views import IndexView, SobreView
 from .views import MidiaCreate, LocalCreate, TipoShowCreate, PerfilCantorCreate, ShowCreate
 from .views import MidiaUpdate, LocalUpdate, TipoShowUpdate, PerfilCantorUpdate, ShowUpdate
-# from .views import LocalDelete, TipoShowDelete
+
+from .views import MidiaDelete, LocalDelete, TipoShowDelete, PerfilCantorDelete, ShowDelete
 urlpatterns = [
     path("", IndexView.as_view(), name = "index"),
     path("sobre/", SobreView.as_view(), name = "sobre"),
@@ -26,8 +27,11 @@ urlpatterns = [
 
 ###########################################################################
 
-    #  path("excluir/local/<int:pk>/", LocalDelete.as_view(), name = "excluir-local"),
-    #  path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name="excluir-tipo"),
-
+      path("excluir/midia/<int:pk>/", MidiaDelete.as_view(), name = "excluir-midia"),
+      path("excluir/local/<int:pk>/", LocalDelete.as_view(), name="excluir-local"),
+      path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name = "excluir-tipo"),
+      path("excluir/perfil/<int:pk>/", PerfilCantorDelete.as_view(), name="excluir-perfil"),
+      path("excluir/show/<int:pk>/", ShowDelete.as_view(), name = "excluir-show"),
+     
 
 ]

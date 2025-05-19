@@ -1,8 +1,29 @@
-body {
+
+
+#menu {
+    list-style: none;
+    padding: 5px;
+    font-size: 30px;
+    margin: 0;
+    background-color: #ff0000;
+    text-align: center;
+}
+#menu li {
+    display: inline;
+    margin-right: 10px;
+}
+
+#menu li a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    padding: 5px 10px;
     
-    color: rgb(0, 0, 0);
-    div {
-        text-align: center;
-        color:blue;
-    }
+}
+#menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+#rodape{
+    text-align: center;
 }

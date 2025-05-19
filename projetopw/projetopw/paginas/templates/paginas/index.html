@@ -7,15 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block titulo %}
-    <title> MUSIC-IA </title>
+    <title> ShowPorAi </title>
     {% endblock titulo %}
 
     <link rel = "stylesheet" href = "{% static 'css/estilo.css' %}">
     
 </head>
 <body>
-    <h4>Menu Superior</h4>
-    <ul>
+    <ul id="menu">
         <li>
             <a href = "{% url "index" %}">Início</a>
         </li>
@@ -24,13 +23,20 @@
             <a href = "{% url "sobre" %}">Sobre Nós</a>
         </li>
 
-    </ul>
+        <li>
+            <a href = "{% url "inserir-show" %}">Cadastro do Show</a>
+        </li> 
 
+        <li>
+            <a href = "{% url "inserir-perfil" %}">Cadastro do Perfil Do Cantor</a>
+        </li> 
+
+    </ul>
     {%   block conteudo   %}
 
     {%   endblock   %}
 
-    <p>
+    <p id = "rodape">
         Desenvolvido Por Beatriz Oliveira Lustosa
     </p>
 </body>
