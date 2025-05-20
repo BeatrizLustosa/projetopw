@@ -1,4 +1,54 @@
+/* Fundo escuro que cobre toda a tela */
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    /* Para deixar mais para baixo, mude de "center" para "flex-start" */
+    align-items: flex-start;
+    padding-top: 80px; /* Ajuste esse valor para a distância que quiser do topo */
+    z-index: 1000;
+}
 
+/* Janela modal */
+.modal {
+    position: relative; /* ou absolute */
+    top: 70px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px; /* Aumentei de 400px para 600px */
+    width: 90%; /* Mantém responsividade */
+    min-height: 300px; /* Altura mínima maior */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    margin: auto;
+}
+
+/* Conteúdo dentro da modal */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Título da descrição */
+.titulodescricao {
+    font-weight: bold;
+    font-size: 25px;
+    color: #ff0000;
+    text-align: center;
+}
+
+/* Texto da descrição */
+.descricao {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #555;
+    text-align: justify;
+}
 
 #menu {
     list-style: none;
@@ -26,4 +76,10 @@
 
 #rodape{
     text-align: center;
+}
+
+.rodapesobre{
+    text-align: center;
+    position: relative; /* ou absolute */
+    top: 80px;
 }
