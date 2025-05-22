@@ -98,24 +98,35 @@ class MidiaDelete(DeleteView):
     model = Midia
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
+    extra_context = {'titulo': 'Excluir Midia',
+                     'botao': 'Excluir'}
+    
 
 class LocalDelete(DeleteView):
     model = Local
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
+    extra_context = {'titulo': 'Excluir Local',
+                     'botao': 'Excluir'}
 
 class TipoShowDelete(DeleteView):
     model = TipoShow
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
+    extra_context = {'titulo': 'Excluir TipoShow',
+                     'botao': 'Excluir'}
 
 class PerfilCantorDelete(DeleteView):
     model = PerfilCantor
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
+    extra_context = {'titulo': 'Excluir Cantor',
+                     'botao': 'Excluir'}
 
 class ShowDelete(DeleteView):
     model = Show
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
+    extra_context = {'titulo': 'Excluir Show',
+                     'botao': 'Excluir'}
 

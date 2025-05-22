@@ -1,8 +1,13 @@
 <html>
 <form method="post">
+<h2>
     {% csrf_token %}
-    <p>Tem certeza que deseja excluir o registro "{{ object }}"?</p>
+    <p>Tem certeza que deseja excluir o registro?</p>
+    <span style = "color: red;"> {{ object }} </span>
+    <br>
+    <br>
     <input type="submit" class="btn btn-danger" value="Sim, excluir.">
+</h2>
 </form>
 
 </html>
