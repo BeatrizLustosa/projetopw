@@ -14,7 +14,11 @@
     
 </head>
 <body>
+
+  
+
     <ul id="menu">
+        
         <li>
             <a href = "{% url "index" %}">Início</a>
         </li>
@@ -32,8 +36,12 @@
         </li> 
 
     </ul>
-    {%   block conteudo   %}
 
+    
+
+
+    {%   block conteudo   %}
+        <img src="{% static 'img/showporai.png' %}" class = "LogoShowPorAi" alt="LogoShowPorAi">
     {%   endblock   %}
 
     <p id = "rodape">
