@@ -3,6 +3,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from .models import Local, TipoShow, Midia, Show, PerfilCantor
 from django.urls import reverse_lazy
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class IndexView(TemplateView):
     template_name = "paginas/index.html"
 
@@ -43,7 +45,7 @@ class PerfilCantorCreate(CreateView):
     success_url = reverse_lazy('index')
     extra_context = {'titulo' : 'Cadastro Do Cantor',
                      'botao' : 'Salvar'}
-class ShowCreate(CreateView):
+class ShowCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Show
     fields = ['nome', 'data', 'hora', 'local', 'tipo_show', 'foto_show']

@@ -5,7 +5,28 @@ from .views import MidiaCreate, LocalCreate, TipoShowCreate, PerfilCantorCreate,
 from .views import MidiaUpdate, LocalUpdate, TipoShowUpdate, PerfilCantorUpdate, ShowUpdate
 
 from .views import MidiaDelete, LocalDelete, TipoShowDelete, PerfilCantorDelete, ShowDelete
+
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
+
+    path("login/", auth_views.LoginView.as_view(
+         template_name = 'paginas/form.html',
+          extra_context = {'titulo' : 'Autenticação',
+                            'botao' : 'Entrar'}
+    ), name="login"),
+
+
+     path("senha/", auth_views.PasswordChangeView.as_view(
+         template_name = 'paginas/form.html',
+          extra_context = {'titulo' : 'Atualizar senha',
+                            'botao' : 'Salvar'}
+    ), name="senha"),
+
+    path("sair/", auth_views.LogoutView.as_view(), name="sair"),
+
+
+
     path("", IndexView.as_view(), name = "index"),
     path("sobre/", SobreView.as_view(), name = "sobre"),
 
