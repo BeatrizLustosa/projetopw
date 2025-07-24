@@ -1,0 +1,20 @@
+{% extends "paginas/index.html" %}
+{% load static %}
+
+{% block conteudo %}
+<h2>Lista de Shows</h2>
+
+<ul>
+  {% for show in shows %}
+    <li>
+      <strong>{{ show.nome }}</strong><br>
+      Data: {{ show.data }} às {{ show.hora }}<br>
+      Local: {{ show.local.nome }}<br>
+      Tipo: {{ show.tipo_show.tipo_show }}<br>
+      <a href="{{ show.foto_show }}" target="_blank">Ver Foto</a>
+    </li>
+  {% empty %}
+    <li>Nenhum show cadastrado.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

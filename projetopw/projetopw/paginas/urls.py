@@ -5,6 +5,8 @@ from .views import MidiaCreate, LocalCreate, TipoShowCreate, PerfilCantorCreate,
 from .views import MidiaUpdate, LocalUpdate, TipoShowUpdate, PerfilCantorUpdate, ShowUpdate
 
 from .views import MidiaDelete, LocalDelete, TipoShowDelete, PerfilCantorDelete, ShowDelete
+from .views import Midia, Local, TipoShow, PerfilCantor, Show
+
 
 from django.contrib.auth import views as auth_views
 
@@ -48,11 +50,18 @@ urlpatterns = [
 
 ###########################################################################
 
-      path("excluir/midia/<int:pk>/", MidiaDelete.as_view(), name = "excluir-midia"),
-      path("excluir/local/<int:pk>/", LocalDelete.as_view(), name="excluir-local"),
-      path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name = "excluir-tipo"),
-      path("excluir/perfil/<int:pk>/", PerfilCantorDelete.as_view(), name="excluir-perfil"),
-      path("excluir/show/<int:pk>/", ShowDelete.as_view(), name = "excluir-show"),
+      
+    path("excluir/midia/<int:pk>/", MidiaDelete.as_view(), name = "excluir-midia"),
+    path("excluir/local/<int:pk>/", LocalDelete.as_view(), name="excluir-local"),
+    path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name = "excluir-tipo"),
+    path("excluir/perfil/<int:pk>/", PerfilCantorDelete.as_view(), name="excluir-perfil"),
+    path("excluir/show/<int:pk>/", ShowDelete.as_view(), name = "excluir-show"),
      
-
+###############################################################################
+    
+    path("ver/midia/<int:pk>/", Midia.as_view(), name = "ver-midia"),
+    path("ver/local/<int:pk>/", Local.as_view(), name="ver-local"),
+    path("ver/tipo/<int:pk>/", TipoShow.as_view(), name = "ver-tipo"),
+    path("ver/perfil/<int:pk>/", PerfilCantor.as_view(), name="ver-perfil"),
+    path("ver/show/<int:pk>/", Show.as_view(), name = "ver-show"),
 ]

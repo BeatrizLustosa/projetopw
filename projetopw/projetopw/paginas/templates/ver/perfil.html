@@ -1,0 +1,20 @@
+{% extends "paginas/index.html" %}
+{% load static %}
+
+{% block conteudo %}
+<h2>Perfis de Cantores</h2>
+
+<ul>
+  {% for cantor in perfis %}
+    <li>
+      <strong>{{ cantor.nome_artistico }}</strong><br>
+      Gênero: {{ cantor.genero_musical }}<br>
+      Telefone: {{ cantor.telefone }}<br>
+      <a href="{{ cantor.foto }}" target="_blank">Ver foto</a><br>
+      Descrição: {{ cantor.descricao }}
+    </li>
+  {% empty %}
+    <li>Nenhum cantor cadastrado.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

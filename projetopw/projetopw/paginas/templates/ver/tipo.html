@@ -1,0 +1,14 @@
+{% extends "paginas/index.html" %}
+{% load static %}
+
+{% block conteudo %}
+<h2>Tipos de Show</h2>
+
+<ul>
+  {% for tipo in tipos %}
+    <li>{{ tipo.tipo_show }}</li>
+  {% empty %}
+    <li>Nenhum tipo de show cadastrado.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

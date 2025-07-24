@@ -1,0 +1,16 @@
+{% extends "paginas/index.html" %}
+{% load static %}
+
+{% block conteudo %}
+<h2>Lista de Locais</h2>
+
+<ul>
+  {% for local in locais %}
+    <li>
+      <strong>{{ local.nome }}</strong> - {{ local.endereco }}, {{ local.cidade }}
+    </li>
+  {% empty %}
+    <li>Nenhum local encontrado.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

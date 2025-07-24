@@ -1,0 +1,18 @@
+{% extends "paginas/index.html" %}
+{% load static %}
+
+{% block conteudo %}
+<h2>Lista de Mídias</h2>
+
+<ul>
+  {% for midia in midias %}
+    <li>
+      Foto Perfil: <a href="{{ midia.foto_perfil }}">{{ midia.foto_perfil }}</a><br>
+      Divulgação Cantor: <a href="{{ midia.divulgacao_cantor }}">{{ midia.divulgacao_cantor }}</a><br>
+      Divulgação Show: <a href="{{ midia.divulgacao_show }}">{{ midia.divulgacao_show }}</a>
+    </li>
+  {% empty %}
+    <li>Nenhuma mídia cadastrada.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

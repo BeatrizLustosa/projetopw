@@ -6,7 +6,6 @@ class Midia(models.Model):
     divulgacao_cantor = models.URLField(max_length=255)
     divulgacao_show = models.URLField(max_length=255)
     
-    
 
 class Local(models.Model):
     nome = models.CharField(max_length=100)

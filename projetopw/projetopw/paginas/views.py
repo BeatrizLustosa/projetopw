@@ -2,8 +2,9 @@ from django.views.generic import TemplateView
 from django.views.generic import CreateView, UpdateView, DeleteView
 from .models import Local, TipoShow, Midia, Show, PerfilCantor
 from django.urls import reverse_lazy
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+
 
 class IndexView(TemplateView):
     template_name = "paginas/index.html"
@@ -14,7 +15,7 @@ class SobreView(TemplateView):
 ##############################################
 #CREATE
 
-class MidiaCreate(CreateView):
+class MidiaCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Midia
     fields = ['foto_perfil', 'divulgacao_cantor', 'divulgacao_show']
@@ -22,7 +23,7 @@ class MidiaCreate(CreateView):
     extra_context = {'titulo' : 'Cadastro De Fotos',
                      'botao' : 'Salvar'}
 
-class LocalCreate(CreateView):
+class LocalCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Local
     fields = ['nome', 'endereco', 'cidade']
@@ -30,7 +31,7 @@ class LocalCreate(CreateView):
     extra_context = {'titulo' : 'Cadastro De Local',
                      'botao' : 'Salvar'}
                      
-class TipoShowCreate(CreateView):
+class TipoShowCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = TipoShow
     fields = ['tipo_show']
@@ -38,7 +39,7 @@ class TipoShowCreate(CreateView):
     extra_context = {'titulo' : 'Cadastro do Tipo de Show',
                       'botao' : 'Salvar'}
     
-class PerfilCantorCreate(CreateView):
+class PerfilCantorCreate(LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     model = PerfilCantor
     fields = ['nome_artistico', 'genero_musical', 'descricao', 'foto', 'telefone']
@@ -55,7 +56,7 @@ class ShowCreate(LoginRequiredMixin, CreateView):
 ###############################################
 #UPDATE
 
-class MidiaUpdate(UpdateView):
+class MidiaUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     model = Midia
     fields = ['foto_perfil', 'divulgacao_cantor', 'divulgacao_show']
@@ -63,7 +64,7 @@ class MidiaUpdate(UpdateView):
     extra_context = {'titulo' : 'Atualização De Fotos',
                      'botao' : 'Salvar'}
 
-class LocalUpdate(UpdateView):
+class LocalUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     model = Local
     fields = ['nome', 'endereco', 'cidade']
@@ -71,7 +72,7 @@ class LocalUpdate(UpdateView):
     extra_context = {'titulo' : 'Atualização de Local',
                      'botao' : 'Salvar'}
                      
-class TipoShowUpdate(UpdateView):
+class TipoShowUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     model = TipoShow
     fields = ['tipo_show']
@@ -79,7 +80,7 @@ class TipoShowUpdate(UpdateView):
     extra_context = {'titulo' : 'Atualização do Tipo de Show',
                       'botao' : 'Salvar'}
     
-class PerfilCantorUpdate(UpdateView):
+class PerfilCantorUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     model = PerfilCantor
     fields = ['nome_artistico', 'genero_musical', 'descricao', 'foto', 'telefone']
@@ -87,7 +88,7 @@ class PerfilCantorUpdate(UpdateView):
     extra_context = {'titulo' : 'Atualização Do Cantor',
                      'botao' : 'Salvar'}
     
-class ShowUpdate(UpdateView):
+class ShowUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     model = Show
     fields = ['nome', 'data', 'hora', 'local', 'tipo_show', 'foto_show']
@@ -96,7 +97,7 @@ class ShowUpdate(UpdateView):
                      'botao' : 'Salvar'}
 ##################################################
 #DELETE
-class MidiaDelete(DeleteView):
+class MidiaDelete(LoginRequiredMixin, DeleteView):
     model = Midia
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
@@ -104,31 +105,56 @@ class MidiaDelete(DeleteView):
                      'botao': 'Excluir'}
     
 
-class LocalDelete(DeleteView):
+class LocalDelete(LoginRequiredMixin, DeleteView):
     model = Local
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
     extra_context = {'titulo': 'Excluir Local',
                      'botao': 'Excluir'}
 
-class TipoShowDelete(DeleteView):
+class TipoShowDelete(LoginRequiredMixin, DeleteView):
     model = TipoShow
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
     extra_context = {'titulo': 'Excluir TipoShow',
                      'botao': 'Excluir'}
 
-class PerfilCantorDelete(DeleteView):
+class PerfilCantorDelete(LoginRequiredMixin, DeleteView):
     model = PerfilCantor
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
     extra_context = {'titulo': 'Excluir Cantor',
                      'botao': 'Excluir'}
 
-class ShowDelete(DeleteView):
+class ShowDelete(LoginRequiredMixin, DeleteView):
     model = Show
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
     extra_context = {'titulo': 'Excluir Show',
                      'botao': 'Excluir'}
 
+######################################################
+class Midia(LoginRequiredMixin, ListView):
+   model = Midia
+   template_name = 'ver/show.html'
+    
+
+class Local(LoginRequiredMixin, ListView):
+    model = Local
+    template_name = 'ver/local.html'
+
+class TipoShow(LoginRequiredMixin, ListView):
+    model = TipoShow
+    template_name = 'ver/tipo.html'
+    
+
+class PerfilCantor(ListView):
+    model = PerfilCantor
+    template_name = 'ver/perfil.html'
+    
+class Show(ListView):
+    model = Show
+    template_name = 'ver/show.html'
+
+###########################################
+   
