@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Midia(models.Model):
     foto_perfil =  models.URLField(max_length=255)
@@ -27,6 +28,8 @@ class PerfilCantor(models.Model):
     descricao = models.TextField()
     foto = models.URLField(max_length=255)
     telefone = models.CharField(max_length=20)
+
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil_cantor')
     
 class Show(models.Model):
     nome = models.CharField(max_length=100)
