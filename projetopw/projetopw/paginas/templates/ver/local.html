@@ -4,13 +4,36 @@
 {% block conteudo %}
 <h2>Lista de Locais</h2>
 
-<ul>
-  {% for local in locais %}
-    <li>
-      <strong>{{ local.nome }}</strong> - {{ local.endereco }}, {{ local.cidade }}
-    </li>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Endereço</th>
+      <th>Cidade</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for local in object_list %}
+
+    <tr>
+      <td>{{ local.nome }}</td>
+      <td>{{ local.endereco }}</td>
+      <td>{{ local.cidade }}</td>
+      <td>
+        <a href="{% url "editar-local" local.pk %}">Editar</a>
+        <a href="{% url "excluir-local" local.pk %}">Excluir</a>
+      </td>
+
+    </tr>
   {% empty %}
-    <li>Nenhum local encontrado.</li>
+    <tr>
+      <td colspan="4">Nenhum local encontrado.</td>
+      
+    </tr>
   {% endfor %}
-</ul>
+  </tbody>
+
+ </table>
 {% endblock %}

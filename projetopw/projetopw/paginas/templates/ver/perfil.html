@@ -4,17 +4,41 @@
 {% block conteudo %}
 <h2>Perfis de Cantores</h2>
 
-<ul>
-  {% for cantor in perfis %}
-    <li>
-      <strong>{{ cantor.nome_artistico }}</strong><br>
-      Gênero: {{ cantor.genero_musical }}<br>
-      Telefone: {{ cantor.telefone }}<br>
-      <a href="{{ cantor.foto }}" target="_blank">Ver foto</a><br>
-      Descrição: {{ cantor.descricao }}
-    </li>
+<table>
+  <thead>
+    <tr>
+      <th>Nome Artístico</th>
+      <th>Gênero Musical</th>
+      <th>Telefone</th>
+      <th>Foto</th>
+      <th>Descrição</th>
+      <th>Opções</th>
+    
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for perfilcantor in object_list %}
+
+    <tr>
+      <td>{{ perfilcantor.nome_artistico }}</td>
+      <td>{{ perfilcantor.genero_musical }}</td>
+      <td>{{ perfilcantor.telefone }}</td>
+      <td>{{ perfilcantor.foto }}</td>
+      <td>{{ perfilcantor.descricao }}</td>
+      <td>
+        <a href="{% url "editar-perfil" perfilcantor.pk %}">Editar</a>
+        <a href="{% url "excluir-perfil" perfilcantor.pk %}">Excluir</a>
+      </td>
+
+    </tr>
   {% empty %}
-    <li>Nenhum cantor cadastrado.</li>
+    <tr>
+      <td colspan="6">Nenhum local encontrado.</td>
+      
+    </tr>
   {% endfor %}
-</ul>
+  </tbody>
+
+ </table>
 {% endblock %}

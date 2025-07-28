@@ -2,17 +2,38 @@
 {% load static %}
 
 {% block conteudo %}
-<h2>Lista de Mídias</h2>
+<h2>Lista de Mídia</h2>
 
-<ul>
-  {% for midia in midias %}
-    <li>
-      Foto Perfil: <a href="{{ midia.foto_perfil }}">{{ midia.foto_perfil }}</a><br>
-      Divulgação Cantor: <a href="{{ midia.divulgacao_cantor }}">{{ midia.divulgacao_cantor }}</a><br>
-      Divulgação Show: <a href="{{ midia.divulgacao_show }}">{{ midia.divulgacao_show }}</a>
-    </li>
+<table>
+  <thead>
+    <tr>
+      <th>Foto Perfil</th>
+      <th>Divulgação Cantor</th>
+      <th>Divulgação Show</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for midia in object_list %}
+
+    <tr>
+      <td>{{ midia.foto_perfil }}</td>
+      <td>{{ midia.divulgacao_cantor }}</td>
+      <td>{{ midia.divulgacao_show }}</td>
+      <td>
+        <a href="{% url "editar-midia" midia.pk %}">Editar</a>
+        <a href="{% url "excluir-midia" midia.pk %}">Excluir</a>
+      </td>
+
+    </tr>
   {% empty %}
-    <li>Nenhuma mídia cadastrada.</li>
+    <tr>
+      <td colspan="4">Nenhum Perfil Encontrado.</td>
+      
+    </tr>
   {% endfor %}
-</ul>
+  </tbody>
+
+ </table>
 {% endblock %}

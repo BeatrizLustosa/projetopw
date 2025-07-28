@@ -150,25 +150,25 @@ class ShowDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
                      'botao': 'Excluir'}
 
 ######################################################
-class Midia(LoginRequiredMixin, ListView):
+class MidiaList(LoginRequiredMixin, ListView):
    model = Midia
-   template_name = 'ver/show.html'
+   template_name = 'ver/midia.html'
     
 
-class Local(LoginRequiredMixin, ListView):
+class LocalList(LoginRequiredMixin, ListView):
     model = Local
     template_name = 'ver/local.html'
 
-class TipoShow(LoginRequiredMixin, ListView):
+class TipoShowList(LoginRequiredMixin, ListView):
     model = TipoShow
     template_name = 'ver/tipo.html'
     
 
-class PerfilCantor(ListView):
+class PerfilCantorList(ListView):
     model = PerfilCantor
     template_name = 'ver/perfil.html'
     
-class Show(ListView):
+class ShowList(ListView):
     model = Show
     template_name = 'ver/show.html'
 

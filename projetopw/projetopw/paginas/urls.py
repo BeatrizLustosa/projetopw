@@ -5,7 +5,7 @@ from .views import MidiaCreate, LocalCreate, TipoShowCreate, PerfilCantorCreate,
 from .views import MidiaUpdate, LocalUpdate, TipoShowUpdate, PerfilCantorUpdate, ShowUpdate
 
 from .views import MidiaDelete, LocalDelete, TipoShowDelete, PerfilCantorDelete, ShowDelete
-from .views import Midia, Local, TipoShow, PerfilCantor, Show
+from .views import MidiaList, LocalList, TipoShowList, PerfilCantorList, ShowList
 
 
 from django.contrib.auth import views as auth_views
@@ -59,9 +59,9 @@ urlpatterns = [
      
 ###############################################################################
     
-    path("ver/midia/<int:pk>/", Midia.as_view(), name = "ver-midia"),
-    path("ver/local/<int:pk>/", Local.as_view(), name="ver-local"),
-    path("ver/tipo/<int:pk>/", TipoShow.as_view(), name = "ver-tipo"),
-    path("ver/perfil/<int:pk>/", PerfilCantor.as_view(), name="ver-perfil"),
-    path("ver/show/<int:pk>/", Show.as_view(), name = "ver-show"),
+    path("ver/midia/", MidiaList.as_view(), name = "ver-midia"),
+    path("ver/local/", LocalList.as_view(), name="ver-local"),
+    path("ver/tipo/", TipoShowList.as_view(), name = "ver-tipo"),
+    path("ver/perfil/", PerfilCantorList.as_view(), name="ver-perfil"),
+    path("ver/show/", ShowList.as_view(), name = "ver-show"),
 ]

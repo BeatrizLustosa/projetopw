@@ -4,17 +4,41 @@
 {% block conteudo %}
 <h2>Lista de Shows</h2>
 
-<ul>
-  {% for show in shows %}
-    <li>
-      <strong>{{ show.nome }}</strong><br>
-      Data: {{ show.data }} às {{ show.hora }}<br>
-      Local: {{ show.local.nome }}<br>
-      Tipo: {{ show.tipo_show.tipo_show }}<br>
-      <a href="{{ show.foto_show }}" target="_blank">Ver Foto</a>
-    </li>
+<table>
+  <thead>
+    <tr>
+
+      <th>Nome</th>
+      <th>Data</th>
+      <th>Hora</th>
+      <th>Tipo de Show</th>
+      <th>Foto</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for show in object_list %}
+
+    <tr>
+      <td>{{ show.nome }}</td>
+      <td>{{ show.data }}</td>
+      <td>{{ show.hora }}</td>
+      <td>{{ show.tipo_show }}</td>
+      <td>{{ show.foto_show }}</td>
+      <td>
+        <a href="{% url "editar-show" show.pk %}">Editar</a>
+        <a href="{% url "excluir-show" show.pk %}">Excluir</a>
+      </td>
+
+    </tr>
   {% empty %}
-    <li>Nenhum show cadastrado.</li>
+    <tr>
+      <td colspan="6">Nenhum Show Encontrado.</td>
+      
+    </tr>
   {% endfor %}
-</ul>
+  </tbody>
+
+ </table>
 {% endblock %}
