@@ -1,6 +1,5 @@
 runtime: python312 
 entrypoint: gunicorn -b :$PORT projetopw.wsgi 
- # Substitua "seu_projeto" pelo nome do seu projeto Django (o mesmo nome da pasta que tem o arquivo settings.py)
 
 handlers:
 - url: /static
