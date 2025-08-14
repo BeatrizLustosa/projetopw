@@ -20,16 +20,13 @@
     <ul id="menu">
         
         {% if request.user.is_authenticated %}
-        
-        <li><a href = "{% url "inserir-show" %}">Cadastro do Show</a></li> 
-        <li><a href = "{% url "inserir-tipo" %}">Cadastro do Tipo do Show</a></li> 
-        <li><a href = "{% url "inserir-perfil" %}">Cadastro do Perfil Do Cantor</a></li> 
-        <li><a href = "{% url "inserir-local" %}">Cadastro do Local do Show</a></li> 
-        <li><a href = "{% url "inserir-midia" %}">Cadastro das Fotos do Cantor</a></li> 
-        <li><a href = "{% url "sair" %}">LOGOUT</a></li> 
+        <li><a href = "{% url "ver-show" %}">Shows</a></li> 
+        <li><a href = "{% url "inserir-show" %}">Cadastro dos Shows</a></li> 
+        <li><a href = "{% url "sair" %}">Logout</a></li> 
 
         {% else %}
         <li><a href = "{% url "index" %}">Início</a></li>
+        <li><a href = "{% url "ver-show" %}">Shows</a></li>
         <li><a href = "{% url "sobre" %}">Sobre Nós</a></li>
         <li><a href = "{% url "login" %}">Login</a></li> 
        

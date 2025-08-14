@@ -51,6 +51,7 @@ class PerfilCantorCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Perfil criado com sucesso!"
     extra_context = {'titulo' : 'Cadastro Do Cantor',
                      'botao' : 'Salvar'}
+    
 class ShowCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'paginas/form.html'
     model = Show
@@ -59,6 +60,13 @@ class ShowCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Show criado com sucesso!"
     extra_context = {'titulo' : 'Cadastro Do Show',
                      'botao' : 'Salvar'}
+    
+    def form_valid(self, form):
+        form.instance.cantor = self.request.user
+        url = super().form_valid(form)
+        return url
+    
+
 ###############################################
 #UPDATE
 

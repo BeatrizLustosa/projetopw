@@ -26,6 +26,15 @@ urlpatterns = [
     ), name="senha"),
 
     path("sair/", auth_views.LogoutView.as_view(), name="sair"),
+  
+  
+    path("senha/", auth_views.PasswordChangeView.as_view( 
+         template_name = 'paginasweb/form.html',
+         extra_context = {
+             'titulo': 'Atualizar senha',
+             'botao' : 'Salvar',
+         }
+    ),name="alterar-senha"),
 
 
 
@@ -50,7 +59,6 @@ urlpatterns = [
 
 ###########################################################################
 
-      
     path("excluir/midia/<int:pk>/", MidiaDelete.as_view(), name = "excluir-midia"),
     path("excluir/local/<int:pk>/", LocalDelete.as_view(), name="excluir-local"),
     path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name = "excluir-tipo"),

@@ -7,8 +7,8 @@
 <table>
   <thead>
     <tr>
-
-      <th>Nome</th>
+      <th>Cantor</th>
+      <th>Nome do Show</th>
       <th>Data</th>
       <th>Hora</th>
       <th>Tipo de Show</th>
@@ -21,6 +21,7 @@
   {% for show in object_list %}
 
     <tr>
+      <td>{{ show.cantor }} </td>
       <td>{{ show.nome }}</td>
       <td>{{ show.data }}</td>
       <td>{{ show.hora }}</td>

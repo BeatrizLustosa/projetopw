@@ -34,10 +34,14 @@ class Show(models.Model):
     nome = models.CharField(max_length=100)
     data = models.DateField() 
     hora  = models.TimeField()
+    cantor = models.ForeignKey(User,on_delete=models.CASCADE)
     local = models.ForeignKey(Local,on_delete=models.PROTECT)
     tipo_show = models.ForeignKey(TipoShow,on_delete=models.PROTECT)
     foto_show = models.URLField(max_length=100)
-
+    
     def __str__(self):
         return  f"{self.nome} ({self.local}) ({self.tipo_show})"
+    
+    class Meta:
+        ordering = ['data']
         
