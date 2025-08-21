@@ -1,36 +1,35 @@
 {% extends "paginas/index.html" %}
 {% load static %}
 
-
 {% block conteudo %}
-<h2>Lista de Tipos de Show</h2>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="titulodescricao">LISTA DE TIPOS DE SHOW</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Tipo do Show</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
+      <table class="tabela-locais">
+        <thead>
+          <tr>
+            <th>Tipo do Show</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  {% for tipo in object_list %}
-
-    <tr>
-      <td>{{ tipo.tipo_show }}</td>
-      <td>
-        <a href="{% url "editar-tipo" tipo.pk %}">Editar</a>
-        <a href="{% url "excluir-tipo" tipo.pk %}">Excluir</a>
-      </td>
-
-    </tr>
-  {% empty %}
-    <tr>
-      <td colspan="4">Nenhum tipo de show encontrado.</td>
-      
-    </tr>
-  {% endfor %}
-  </tbody>
-
- </table>
+        <tbody>
+        {% for tipo in object_list %}
+          <tr>
+            <td>{{ tipo.tipo_show }}</td>
+            <td>
+              <a href="{% url "editar-tipo" tipo.pk %}" class="botao-opcao">Editar</a>
+              <a href="{% url "excluir-tipo" tipo.pk %}" class="botao-opcao excluir">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2">Nenhum tipo de show encontrado.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

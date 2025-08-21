@@ -7,12 +7,16 @@ from .views import MidiaUpdate, LocalUpdate, TipoShowUpdate, PerfilCantorUpdate,
 from .views import MidiaDelete, LocalDelete, TipoShowDelete, PerfilCantorDelete, ShowDelete
 from .views import MidiaList, LocalList, TipoShowList, PerfilCantorList, ShowList
 
+from .views import CadastroUsuarioView
+
 
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path("registrar/", CadastroUsuarioView.as_view(), name="registrar"),
 
     path("login/", auth_views.LoginView.as_view(
+        
          template_name = 'paginas/form.html',
           extra_context = {'titulo' : 'Autenticação',
                             'botao' : 'Entrar'}

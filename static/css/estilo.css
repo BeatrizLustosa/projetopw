@@ -145,3 +145,55 @@ display: block;
     position: relative; /* ou absolute */
     top: 80px;
 }
+
+.tabela-locais {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.tabela-locais th {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.tabela-locais td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #555;
+}
+
+.tabela-locais tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-locais tr:hover {
+    background-color: #ffeaea;
+}
+
+.botao-opcao {
+    text-decoration: none;
+    padding: 6px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    background-color: #ff0000;
+}
+
+.botao-opcao:hover {
+    background-color: #cc0000;
+}
+
+.botao-opcao.excluir {
+    background-color: #555;
+}
+
+.botao-opcao.excluir:hover {
+    background-color: #333;
+}

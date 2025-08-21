@@ -2,43 +2,48 @@
 {% load static %}
 
 {% block conteudo %}
-<h2>Perfis de Cantores</h2>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="titulodescricao">PERFIS DE CANTORES</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome Artístico</th>
-      <th>Gênero Musical</th>
-      <th>Telefone</th>
-      <th>Foto</th>
-      <th>Descrição</th>
-      <th>Opções</th>
-    
-    </tr>
-  </thead>
+      <table class="tabela-locais">
+        <thead>
+          <tr>
+            <th>Nome Artístico</th>
+            <th>Gênero Musical</th>
+            <th>Telefone</th>
+            <th>Foto</th>
+            <th>Descrição</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  {% for perfilcantor in object_list %}
-
-    <tr>
-      <td>{{ perfilcantor.nome_artistico }}</td>
-      <td>{{ perfilcantor.genero_musical }}</td>
-      <td>{{ perfilcantor.telefone }}</td>
-      <td>{{ perfilcantor.foto }}</td>
-      <td>{{ perfilcantor.descricao }}</td>
-      <td>
-        <a href="{% url "editar-perfil" perfilcantor.pk %}">Editar</a>
-        <a href="{% url "excluir-perfil" perfilcantor.pk %}">Excluir</a>
-      </td>
-
-    </tr>
-  {% empty %}
-    <tr>
-      <td colspan="6">Nenhum local encontrado.</td>
-      
-    </tr>
-  {% endfor %}
-  </tbody>
-
- </table>
+        <tbody>
+        {% for perfilcantor in object_list %}
+          <tr>
+            <td>{{ perfilcantor.nome_artistico }}</td>
+            <td>{{ perfilcantor.genero_musical }}</td>
+            <td>{{ perfilcantor.telefone }}</td>
+            <td>
+              {% if perfilcantor.foto %}
+                <img src="{{ perfilcantor.foto.url }}" alt="Foto de {{ perfilcantor.nome_artistico }}" width="80" height="80" style="object-fit:cover; border-radius:8px;">
+              {% else %}
+                Sem foto
+              {% endif %}
+            </td>
+            <td>{{ perfilcantor.descricao }}</td>
+            <td>
+              <a href="{% url "editar-perfil" perfilcantor.pk %}" class="botao-opcao">Editar</a>
+              <a href="{% url "excluir-perfil" perfilcantor.pk %}" class="botao-opcao excluir">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6">Nenhum perfil encontrado.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

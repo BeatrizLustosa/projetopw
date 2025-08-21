@@ -2,44 +2,50 @@
 {% load static %}
 
 {% block conteudo %}
-<h2>Lista de Shows</h2>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="titulodescricao">LISTA DE SHOWS</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cantor</th>
-      <th>Nome do Show</th>
-      <th>Data</th>
-      <th>Hora</th>
-      <th>Tipo de Show</th>
-      <th>Foto</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
+      <table class="tabela-locais">
+        <thead>
+          <tr>
+            <th>Cantor</th>
+            <th>Nome do Show</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Tipo de Show</th>
+            <th>Foto</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  {% for show in object_list %}
-
-    <tr>
-      <td>{{ show.cantor }} </td>
-      <td>{{ show.nome }}</td>
-      <td>{{ show.data }}</td>
-      <td>{{ show.hora }}</td>
-      <td>{{ show.tipo_show }}</td>
-      <td>{{ show.foto_show }}</td>
-      <td>
-        <a href="{% url "editar-show" show.pk %}">Editar</a>
-        <a href="{% url "excluir-show" show.pk %}">Excluir</a>
-      </td>
-
-    </tr>
-  {% empty %}
-    <tr>
-      <td colspan="6">Nenhum Show Encontrado.</td>
-      
-    </tr>
-  {% endfor %}
-  </tbody>
-
- </table>
+        <tbody>
+        {% for show in object_list %}
+          <tr>
+            <td>{{ show.cantor }}</td>
+            <td>{{ show.nome }}</td>
+            <td>{{ show.data }}</td>
+            <td>{{ show.hora }}</td>
+            <td>{{ show.tipo_show }}</td>
+            <td>
+              {% if show.foto_show %}
+                <img src="{{ show.foto_show.url }}" alt="Foto do show {{ show.nome }}" width="100" height="80" style="object-fit:cover; border-radius:8px;">
+              {% else %}
+                Sem foto
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url "editar-show" show.pk %}" class="botao-opcao">Editar</a>
+              <a href="{% url "excluir-show" show.pk %}" class="botao-opcao excluir">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7">Nenhum Show Encontrado.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

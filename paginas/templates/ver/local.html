@@ -2,38 +2,38 @@
 {% load static %}
 
 {% block conteudo %}
-<h2>Lista de Locais</h2>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="titulodescricao">LISTA DE LOCAIS</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Endereço</th>
-      <th>Cidade</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
+      <table class="tabela-locais">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Cidade</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  {% for local in object_list %}
-
-    <tr>
-      <td>{{ local.nome }}</td>
-      <td>{{ local.endereco }}</td>
-      <td>{{ local.cidade }}</td>
-      <td>
-        <a href="{% url "editar-local" local.pk %}">Editar</a>
-        <a href="{% url "excluir-local" local.pk %}">Excluir</a>
-      </td>
-
-    </tr>
-  {% empty %}
-    <tr>
-      <td colspan="4">Nenhum local encontrado.</td>
-      
-    </tr>
-  {% endfor %}
-  </tbody>
-
- </table>
+        <tbody>
+        {% for local in object_list %}
+          <tr>
+            <td>{{ local.nome }}</td>
+            <td>{{ local.endereco }}</td>
+            <td>{{ local.cidade }}</td>
+            <td>
+              <a href="{% url "editar-local" local.pk %}" class="botao-opcao">Editar</a>
+              <a href="{% url "excluir-local" local.pk %}" class="botao-opcao excluir">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">Nenhum local encontrado.</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}
