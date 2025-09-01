@@ -1,51 +1,39 @@
 {% extends "paginas/index.html" %}
-
-
-
 {% load static %}
-
 
 {% block conteudo %}
 
+<div class="container my-5">
 
-  <div class="modal">
-    <div class="modal-content">
-      <div class="titulodescricao">DESCRIÇÃO GERAL</div>
-      <div class="descricao">
+  <!-- Descrição Geral -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-danger text-white text-center fw-bold">
+      DESCRIÇÃO GERAL
+    </div>
+    <div class="card-body">
+      <p class="card-text fs-5 text-justify">
         O projeto “Show Por Aí” propõe o desenvolvimento de um site que conecta músicos locais ao público, 
         promovendo a divulgação de eventos musicais em suas cidades. A plataforma permite que artistas cadastrem seus perfis,
         compartilhem informações sobre seus shows — sejam eles públicos (em barzinhos, praças, festas abertas) 
         ou privados (em aniversários, confraternizações etc.) — e atualizem mídias promocionais. 
         O público, por sua vez, poderá buscar por apresentações conforme cidade, data e tipo de evento, 
         facilitando o acesso à cena musical local.
-      </div>
-      <BR>
+      </p>
     </div>
   </div>
- 
-   <br>
-   <br>
-  <br>
-    <div class="modal">
-         <div class="modal-content">
-            <div class="titulodescricao">DIAGRAMA DE CLASSES</div>
-                <img src="{% static 'img/diagramaclasse.png' %}" class = "diagramaclasse" alt="diagramaclasse"> 
 
-            </div>
-          </div>
+  <!-- Diagrama de Classes -->
+  <div class="card shadow mb-5 text-center">
+    <div class="card-header bg-danger text-white fw-bold">
+      DIAGRAMA DE CLASSES
     </div>
-  <br>
-   <br>
-  <br>
-    <div class="modal">
-         <div class="modal-content">
-            <div class="titulodescricao">DIAGRAMA DE CASOS DE USO</div>
-                <img src="{% static '' %}" class = "diagramadecasosdeuso" alt="diagramadecasosdeuso"> 
-
-            </div>
-          </div>
+    <div class="card-body">
+      <img src="{% static 'img/diagramaclasse.png' %}" 
+           class="img-fluid rounded shadow-sm" 
+           alt="Diagrama de Classes" 
+           style="max-width: 100%; height: auto;">
     </div>
-  
-  <p class = "rodapesobre"> Desenvolvido por Beatriz Oliveira Lustosa </p>
+  </div>
 
-  {%   endblock   %}
+
+{% endblock %}

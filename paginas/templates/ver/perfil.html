@@ -2,48 +2,33 @@
 {% load static %}
 
 {% block conteudo %}
-  <div class="modal">
-    <div class="modal-content">
-      <div class="titulodescricao">PERFIS DE CANTORES</div>
-
-      <table class="tabela-locais">
-        <thead>
-          <tr>
-            <th>Nome Artístico</th>
-            <th>Gênero Musical</th>
-            <th>Telefone</th>
-            <th>Foto</th>
-            <th>Descrição</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
-
-        <tbody>
+<div class="container my-5">
+    <div class="row g-4">
         {% for perfilcantor in object_list %}
-          <tr>
-            <td>{{ perfilcantor.nome_artistico }}</td>
-            <td>{{ perfilcantor.genero_musical }}</td>
-            <td>{{ perfilcantor.telefone }}</td>
-            <td>
-              {% if perfilcantor.foto %}
-                <img src="{{ perfilcantor.foto.url }}" alt="Foto de {{ perfilcantor.nome_artistico }}" width="80" height="80" style="object-fit:cover; border-radius:8px;">
-              {% else %}
-                Sem foto
-              {% endif %}
-            </td>
-            <td>{{ perfilcantor.descricao }}</td>
-            <td>
-              <a href="{% url "editar-perfil" perfilcantor.pk %}" class="botao-opcao">Editar</a>
-              <a href="{% url "excluir-perfil" perfilcantor.pk %}" class="botao-opcao excluir">Excluir</a>
-            </td>
-          </tr>
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                {% if perfilcantor.foto %}
+                <img src="{{ perfilcantor.foto.url }}" class="card-img-top" alt="Foto de {{ perfilcantor.nome_artistico }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'img/sem-foto.png' %}" class="card-img-top" alt="Sem foto" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">{{ perfilcantor.nome_artistico }}</h5>
+                    <p class="card-text"><strong>Gênero:</strong> {{ perfilcantor.genero_musical }}</p>
+                    <p class="card-text"><strong>Telefone:</strong> {{ perfilcantor.telefone }}</p>
+                    <p class="card-text">{{ perfilcantor.descricao|truncatewords:20 }}</p>
+                    <div class="mt-auto d-flex justify-content-center gap-2">
+                        <a href="{% url 'editar-perfil'  %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'excluir-perfil'  %}" class="btn btn-danger btn-sm">Excluir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% empty %}
-          <tr>
-            <td colspan="6">Nenhum perfil encontrado.</td>
-          </tr>
+        <div class="col-12">
+            <div class="alert alert-info text-center">Nenhum perfil encontrado.</div>
+        </div>
         {% endfor %}
-        </tbody>
-      </table>
     </div>
-  </div>
+</div>
 {% endblock %}

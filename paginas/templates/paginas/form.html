@@ -1,27 +1,25 @@
 {% extends "paginas/index.html" %}
-
-
-
 {% load static %}
 
-
 {% block conteudo %}
-
-<h2>
-   [{{titulo}}]
-</h2>
-
-<form action = "" method = "post">
-
-    {% csrf_token %}
-
-    {{form.as_p}}
-
-    <button type="submit"> {{ botao }} </button>
-
-    
-</form>
-<p>
-    
-</p>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg p-4">
+        <h2 class="text-center text-danger fw-bold mb-4">[{{ titulo }}]</h2>
+        <form action="" method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          
+          <!-- Formulário com estilo Bootstrap -->
+          <div class="mb-3">
+            {{ form.as_p }}
+          </div>
+          
+          <!-- Botão estilizado -->
+          <button type="submit" class="btn btn-primary w-100">{{ botao }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

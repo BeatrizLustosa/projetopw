@@ -58,7 +58,7 @@ urlpatterns = [
     path("editar/midia/<int:pk>/", MidiaUpdate.as_view(), name="editar-midia"),
     path("editar/local/<int:pk>/", LocalUpdate.as_view(), name = "editar-local"),
     path("editar/tipo/<int:pk>/", TipoShowUpdate.as_view(), name="editar-tipo"),
-    path("editar/perfil/<int:pk>/", PerfilCantorUpdate.as_view(), name="editar-perfil"),
+    path("editar/perfil/", PerfilCantorUpdate.as_view(), name="editar-perfil"),
     path("editar/show/<int:pk>/", ShowUpdate.as_view(), name="editar-show"),
 
 ###########################################################################
@@ -66,7 +66,7 @@ urlpatterns = [
     path("excluir/midia/<int:pk>/", MidiaDelete.as_view(), name = "excluir-midia"),
     path("excluir/local/<int:pk>/", LocalDelete.as_view(), name="excluir-local"),
     path("excluir/tipo/<int:pk>/", TipoShowDelete.as_view(), name = "excluir-tipo"),
-    path("excluir/perfil/<int:pk>/", PerfilCantorDelete.as_view(), name="excluir-perfil"),
+    path("excluir/perfil/", PerfilCantorDelete.as_view(), name="excluir-perfil"),
     path("excluir/show/<int:pk>/", ShowDelete.as_view(), name = "excluir-show"),
      
 ###############################################################################

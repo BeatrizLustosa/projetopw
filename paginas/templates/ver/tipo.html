@@ -2,34 +2,43 @@
 {% load static %}
 
 {% block conteudo %}
-  <div class="modal">
-    <div class="modal-content">
-      <div class="titulodescricao">LISTA DE TIPOS DE SHOW</div>
+<div class="container my-5">
 
-      <table class="tabela-locais">
-        <thead>
-          <tr>
-            <th>Tipo do Show</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
+  <!-- Card principal -->
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white fw-bold text-center">
+      LISTA DE TIPOS DE SHOW
+    </div>
+    <div class="card-body">
 
-        <tbody>
-        {% for tipo in object_list %}
-          <tr>
-            <td>{{ tipo.tipo_show }}</td>
-            <td>
-              <a href="{% url "editar-tipo" tipo.pk %}" class="botao-opcao">Editar</a>
-              <a href="{% url "excluir-tipo" tipo.pk %}" class="botao-opcao excluir">Excluir</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="2">Nenhum tipo de show encontrado.</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <!-- Tabela responsiva -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>Tipo do Show</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tipo in object_list %}
+            <tr>
+              <td>{{ tipo.tipo_show }}</td>
+              <td>
+                <a href="{% url 'editar-tipo' tipo.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
+                <a href="{% url 'excluir-tipo' tipo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="2" class="text-center text-muted">Nenhum tipo de show encontrado.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
+</div>
 {% endblock %}

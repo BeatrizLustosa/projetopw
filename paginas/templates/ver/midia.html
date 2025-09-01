@@ -2,38 +2,65 @@
 {% load static %}
 
 {% block conteudo %}
-  <div class="modal">
-    <div class="modal-content">
-      <div class="titulodescricao">LISTA DE MÍDIA</div>
+<div class="container my-5">
 
-      <table class="tabela-locais">
-        <thead>
-          <tr>
-            <th>Foto Perfil</th>
-            <th>Divulgação Cantor</th>
-            <th>Divulgação Show</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
+  <!-- Card com título -->
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white fw-bold text-center">
+      LISTA DE MÍDIA
+    </div>
+    <div class="card-body">
 
-        <tbody>
-        {% for midia in object_list %}
-          <tr>
-            <td>{{ midia.foto_perfil }}</td>
-            <td>{{ midia.divulgacao_cantor }}</td>
-            <td>{{ midia.divulgacao_show }}</td>
-            <td>
-              <a href="{% url "editar-midia" midia.pk %}" class="botao-opcao">Editar</a>
-              <a href="{% url "excluir-midia" midia.pk %}" class="botao-opcao excluir">Excluir</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="4">Nenhuma Mídia Encontrada.</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <!-- Tabela Bootstrap -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>Foto Perfil</th>
+              <th>Divulgação Cantor</th>
+              <th>Divulgação Show</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for midia in object_list %}
+            <tr>
+              <td>
+                {% if midia.foto_perfil %}
+                  <img src="{{ midia.foto_perfil.url }}" alt="Foto Perfil" class="img-thumbnail" style="max-height: 80px;">
+                {% else %}
+                  <span class="text-muted">Sem foto</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if midia.divulgacao_cantor %}
+                  <img src="{{ midia.divulgacao_cantor.url }}" alt="Divulgação Cantor" class="img-thumbnail" style="max-height: 80px;">
+                {% else %}
+                  <span class="text-muted">Sem imagem</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if midia.divulgacao_show %}
+                  <img src="{{ midia.divulgacao_show.url }}" alt="Divulgação Show" class="img-thumbnail" style="max-height: 80px;">
+                {% else %}
+                  <span class="text-muted">Sem imagem</span>
+                {% endif %}
+              </td>
+              <td>
+                <a href="{% url 'editar-midia' midia.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
+                <a href="{% url 'excluir-midia' midia.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-center">Nenhuma mídia encontrada.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
+</div>
 {% endblock %}

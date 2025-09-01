@@ -1,51 +1,61 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block titulo %}
-    <title> ShowPorAi </title>
-    {% endblock titulo %}
-    
-    
-    <link rel = "stylesheet" href = "{% static 'css/estilo.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  {% block titulo %}
+  <title>ShowPorAi</title>
+  {% endblock titulo %}
 
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-light d-flex flex-column min-vh-100">
 
-  
+  <!-- Navbar Bootstrap -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'index' %}">ShowPorAi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if request.user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ver-show' %}">Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'inserir-show' %}">Cadastro dos Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}">Sobre Nós</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'sair' %}">Logout</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ver-show' %}">Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}">Sobre Nós</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'registrar' %}">Registrar</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <ul id="menu">
-        
-        {% if request.user.is_authenticated %}
-        <li><a href = "{% url "index" %}">Início</a></li> 
-        <li><a href = "{% url "ver-show" %}">Shows</a></li> 
-        <li><a href = "{% url "inserir-show" %}">Cadastro dos Shows</a></li> 
-        <li><a href = "{% url "sair" %}">Logout</a></li> 
+  <!-- Conteúdo -->
+  <main class="flex-grow-1 container my-5">
+    {% block conteudo %}
+      <div class="text-center">
+        <img src="{% static 'img/showporai.png' %}" alt="Logo ShowPorAi" class="img-fluid shadow" style="max-width: 50%;">
+      </div>
+    {% endblock %}
+  </main>
 
-        {% else %}
-        <li><a href = "{% url "index" %}">Início</a></li>
-        <li><a href = "{% url "ver-show" %}">Shows</a></li>
-        <li><a href = "{% url "sobre" %}">Sobre Nós</a></li>
-        <li><a href = "{% url "sobre" %}">Registrar</a></li>
-        <li><a href = "{% url "login" %}">Login</a></li> 
-       
-        {% endif %}
-    </ul>
+  <!-- Rodapé -->
+  <footer class="bg-light text-center py-3 border-top mt-auto">
+    <p class="mb-0">Desenvolvido por Beatriz Oliveira Lustosa</p>
+  </footer>
 
-    
-
-
-    {%   block conteudo   %}
-        <img src="{% static 'img/showporai.png' %}" class = "LogoShowPorAi" alt="LogoShowPorAi">
-    {%   endblock   %}
-
-    <p id = "rodape">
-        Desenvolvido Por Beatriz Oliveira Lustosa
-    </p>
 </body>
 </html>

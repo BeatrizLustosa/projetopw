@@ -2,38 +2,47 @@
 {% load static %}
 
 {% block conteudo %}
-  <div class="modal">
-    <div class="modal-content">
-      <div class="titulodescricao">LISTA DE LOCAIS</div>
+<div class="container my-5">
 
-      <table class="tabela-locais">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>Cidade</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
+  <!-- Card com título -->
+  <div class="card shadow">
+    <div class="card-header bg-danger text-white fw-bold text-center">
+      LISTA DE LOCAIS
+    </div>
+    <div class="card-body">
 
-        <tbody>
-        {% for local in object_list %}
-          <tr>
-            <td>{{ local.nome }}</td>
-            <td>{{ local.endereco }}</td>
-            <td>{{ local.cidade }}</td>
-            <td>
-              <a href="{% url "editar-local" local.pk %}" class="botao-opcao">Editar</a>
-              <a href="{% url "excluir-local" local.pk %}" class="botao-opcao excluir">Excluir</a>
-            </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="4">Nenhum local encontrado.</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <!-- Tabela Bootstrap -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-danger">
+            <tr>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Cidade</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for local in object_list %}
+            <tr>
+              <td>{{ local.nome }}</td>
+              <td>{{ local.endereco }}</td>
+              <td>{{ local.cidade }}</td>
+              <td>
+                <a href="{% url 'editar-local' local.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
+                <a href="{% url 'excluir-local' local.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-center">Nenhum local encontrado.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
+</div>
 {% endblock %}

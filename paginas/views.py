@@ -8,6 +8,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User, Group
 from .forms import UsuarioCadastroForm
+from django.shortcuts import get_object_or_404
+
 
 class IndexView(TemplateView):
     template_name = "paginas/index.html"
@@ -132,6 +134,11 @@ class PerfilCantorUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Perfil Alterado com sucesso!"
     extra_context = {'titulo' : 'Atualização Do Cantor',
                      'botao' : 'Salvar'}
+                     
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(PerfilCantor, usuario=self.request.user)
+        return obj
+
     
 class ShowUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'paginas/form.html'
@@ -141,6 +148,11 @@ class ShowUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Show Alterado com sucesso!"
     extra_context = {'titulo' : 'Atualização Do Show',
                      'botao' : 'Salvar'}
+
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(Show, pk=self.kwargs['pk'], cantor=self.request.user)
+        return obj
+
 ##################################################
 #DELETE
 class MidiaDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -176,6 +188,10 @@ class PerfilCantorDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     extra_context = {'titulo': 'Excluir Cantor',
                      'botao': 'Excluir'}
 
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(PerfilCantor, usuario=self.request.user)
+        return obj
+
 class ShowDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Show
     template_name = 'cadastros/form-excluir.html'
@@ -183,7 +199,12 @@ class ShowDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = "Show Excluído com sucesso!"
     extra_context = {'titulo': 'Excluir Show',
                      'botao': 'Excluir'}
+                     
 
+    def get_object(self, queryset=None):
+        obj = get_object_or_404(Show, pk=self.kwargs['pk'], cantor=self.request.user)
+        return obj
+        
 ######################################################
 class MidiaList(LoginRequiredMixin, ListView):
    model = Midia
