@@ -33,12 +33,21 @@ class CadastroUsuarioView(CreateView):
 
 
     def form_valid(self, form):
+        nome_artistico = form.cleaned_data.get('nome_artistico')
+        telefone = form.cleaned_data.get('telefone')
         # Faz o comportamento padrão do form_valid
         url = super().form_valid(form)
         # Busca ou cria um grupo com esse nome
         grupo, criado = Group.objects.get_or_create(name='Cantor')
         # Acessa o objeto criado e adiciona o usuário no grupo acima
         self.object.groups.add(grupo)
+
+        # Cria o perfil do cantor associado ao usuário
+        PerfilCantor.objects.create(   
+            usuario=self.object,
+            nome_artistico=nome_artistico,
+            telefone=telefone
+        )
         # Retorna a URL de sucesso
         return url
 
@@ -80,6 +89,10 @@ class PerfilCantorCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Perfil criado com sucesso!"
     extra_context = {'titulo' : 'Cadastro Do Cantor',
                      'botao' : 'Salvar'}
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user  # 🔥 Atribui o usuário logado
+        return super().form_valid(form)
     
 class ShowCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'paginas/form.html'

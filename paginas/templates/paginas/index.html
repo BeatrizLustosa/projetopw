@@ -28,12 +28,15 @@
           {% if request.user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Início</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'ver-show' %}">Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ver-perfil' %}">Cantores</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'inserir-show' %}">Cadastro dos Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'inserir-perfil' %}">Cadastro Perfil Cantor</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}">Sobre Nós</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'sair' %}">Logout</a></li>
           {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Início</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'ver-show' %}">Shows</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ver-perfil' %}">Cantores</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}">Sobre Nós</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'registrar' %}">Registrar</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>

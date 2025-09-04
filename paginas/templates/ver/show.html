@@ -18,6 +18,7 @@
             <tr>
               <th>Cantor</th>
               <th>Nome do Show</th>
+              <th>Local</th>
               <th>Data</th>
               <th>Hora</th>
               <th>Tipo de Show</th>
@@ -30,6 +31,7 @@
             <tr>
               <td>{{ show.cantor }}</td>
               <td>{{ show.nome }}</td>
+              <td>{{ show.local }}</td>
               <td>{{ show.data }}</td>
               <td>{{ show.hora }}</td>
               <td>{{ show.tipo_show }}</td>
@@ -42,8 +44,10 @@
                 {% endif %}
               </td>
               <td>
-                <a href="{% url 'editar-show' show.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
-                <a href="{% url 'excluir-show' show.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                {% if user.is_authenticated and request.user == show.cantor %}
+                <a href="{% url 'editar-show' show.id %}">Editar</a>
+                <a href="{% url 'excluir-show' show.id %}">Excluir</a>
+                {% endif %}
               </td>
             </tr>
             {% empty %}

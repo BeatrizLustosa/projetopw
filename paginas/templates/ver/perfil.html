@@ -18,8 +18,10 @@
                     <p class="card-text"><strong>Telefone:</strong> {{ perfilcantor.telefone }}</p>
                     <p class="card-text">{{ perfilcantor.descricao|truncatewords:20 }}</p>
                     <div class="mt-auto d-flex justify-content-center gap-2">
-                        <a href="{% url 'editar-perfil'  %}" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="{% url 'excluir-perfil'  %}" class="btn btn-danger btn-sm">Excluir</a>
+                        {% if user.is_authenticated and request.user == show.cantor %}
+                        <a href="{% url 'editar-perfil'  %}">Editar</a>
+                        <a href="{% url 'excluir-perfil'  %}">Excluir</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

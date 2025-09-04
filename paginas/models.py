@@ -23,9 +23,9 @@ class TipoShow (models.Model):
     
 class PerfilCantor(models.Model):
     nome_artistico =  models.CharField(max_length=100)
-    genero_musical =  models.CharField(max_length=100)
-    descricao = models.TextField()
-    foto = models.URLField(max_length=255)
+    genero_musical =  models.CharField(max_length=100, null=True)
+    descricao = models.TextField(null=True)
+    foto = models.URLField(max_length=255, null=True)
     telefone = models.CharField(max_length=20)
 
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil_cantor')

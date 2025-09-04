@@ -25,8 +25,10 @@
             <tr>
               <td>{{ tipo.tipo_show }}</td>
               <td>
-                <a href="{% url 'editar-tipo' tipo.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
-                <a href="{% url 'excluir-tipo' tipo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                {% if user.is_authenticated and request.user == show.cantor %}
+                <a href="{% url 'editar-tipo' tipo.id %}">Editar</a>
+                <a href="{% url 'excluir-tipo' tipo.id %}">Excluir</a>
+                {% endif %}
               </td>
             </tr>
             {% empty %}

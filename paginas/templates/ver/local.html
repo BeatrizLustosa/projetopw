@@ -29,8 +29,10 @@
               <td>{{ local.endereco }}</td>
               <td>{{ local.cidade }}</td>
               <td>
-                <a href="{% url 'editar-local' local.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
-                <a href="{% url 'excluir-local' local.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                {% if user.is_authenticated and request.user == show.cantor %}
+                <a href="{% url 'editar-show' show.id %}">Editar</a>
+                <a href="{% url 'excluir-show' show.id %}">Excluir</a>
+                {% endif %}
               </td>
             </tr>
             {% empty %}

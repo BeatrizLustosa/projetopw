@@ -8,7 +8,9 @@ from django import forms
 # E outros campos, se necessário
 class UsuarioCadastroForm(UserCreationForm):
 
-
+    nome_artistico = forms.CharField(required=True, max_length=100, help_text="Informe seu nome artístico.", label=
+                                     "Nome Artístico")
+    telefone = forms.CharField(required=True, max_length=20, help_text="Informe seu telefone.")
     email = forms.EmailField(required=True, help_text="Informe um email válido.")
 
 
