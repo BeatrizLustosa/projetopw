@@ -14,6 +14,12 @@ from django.shortcuts import get_object_or_404
 class IndexView(TemplateView):
     template_name = "paginas/index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qntd_show"] = Show.objects.all().count()
+      
+        return context
+    
 class SobreView(TemplateView):
     template_name = 'paginas/sobre.html'
 
