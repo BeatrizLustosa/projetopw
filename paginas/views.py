@@ -157,6 +157,7 @@ class PerfilCantorUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self, queryset=None):
         obj = get_object_or_404(PerfilCantor, usuario=self.request.user)
         return obj
+   
 
     
 class ShowUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

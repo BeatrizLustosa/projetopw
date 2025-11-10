@@ -4,62 +4,66 @@
 {% block conteudo %}
 <div class="container my-5">
 
-  <!-- Card principal -->
-  <div class="card shadow">
-    <div class="card-header bg-primary text-white fw-bold text-center">
-      LISTA DE SHOWS
-    </div>
-    <div class="card-body">
+  <h2 class="text-center mb-4 fw-bold">Lista de Shows</h2>
 
-      <!-- Tabela responsiva -->
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center">
-          <thead class="table-primary">
-            <tr>
-              <th>Cantor</th>
-              <th>Nome do Show</th>
-              <th>Local</th>
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Tipo de Show</th>
-              <th>Foto</th>
-              <th>Opções</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for show in object_list %}
-            <tr>
-              <td>{{ show.cantor }}</td>
-              <td>{{ show.nome }}</td>
-              <td>{{ show.local }}</td>
-              <td>{{ show.data }}</td>
-              <td>{{ show.hora }}</td>
-              <td>{{ show.tipo_show }}</td>
-              <td>
-                {% if show.foto_show %}
-                  <img src="{{ show.foto_show.url }}" alt="Foto do show {{ show.nome }}"
-                       class="img-thumbnail" style="max-height: 80px;">
-                {% else %}
-                  <span class="text-muted">Sem foto</span>
-                {% endif %}
-              </td>
-              <td>
-                {% if user.is_authenticated and request.user == show.cantor %}
-                <a href="{% url 'editar-show' show.id %}">Editar</a>
-                <a href="{% url 'excluir-show' show.id %}">Excluir</a>
-                {% endif %}
-              </td>
-            </tr>
-            {% empty %}
-            <tr>
-              <td colspan="7" class="text-center text-muted">Nenhum show encontrado.</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+  <div class="row g-4">
+
+    {% for show in object_list %}
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+
+        <!-- Foto -->
+        {% if show.foto_show %}
+          <img src="{{ show.foto_show.url }}" 
+               class="card-img-top" 
+               style="height: 200px; object-fit: cover;"
+               alt="Foto do show {{ show.nome }}">
+        {% else %}
+          <img src="{% static 'img/sem-foto.png' %}" 
+               class="card-img-top" 
+               style="height: 200px; object-fit: cover;"
+               alt="Sem foto">
+        {% endif %}
+
+        <!-- Conteúdo -->
+        <div class="card-body">
+
+          <h5 class="card-title text-center fw-bold">{{ show.nome }}</h5>
+
+          <p class="mb-1"><strong>Cantor:</strong> 
+            {{ show.cantor.perfil_cantor.nome_artistico }}
+          </p>
+          <p class="mb-1"><strong>Local:</strong> {{ show.local }}</p>
+          <p class="mb-1"><strong>Data:</strong> {{ show.data }}</p>
+          <p class="mb-1"><strong>Hora:</strong> {{ show.hora }}</p>
+          <p class="mb-1"><strong>Tipo de Show:</strong> {{ show.tipo_show }}</p>
+
+        </div>
+
+        <!-- Rodapé com botões -->
+        <div class="card-footer text-center bg-white">
+
+          {% if user.is_authenticated and request.user == show.cantor %}
+            <a href="{% url 'editar-show' show.id %}" class="btn btn-warning btn-sm me-2">
+              Editar
+            </a>
+            <a href="{% url 'excluir-show' show.id %}" class="btn btn-danger btn-sm">
+              Excluir
+            </a>
+          {% endif %}
+
+        </div>
+
       </div>
-
     </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted">
+        Nenhum show encontrado.
+      </div>
+    {% endfor %}
+
   </div>
+
 </div>
 {% endblock %}
+
