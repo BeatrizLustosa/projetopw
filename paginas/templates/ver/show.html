@@ -4,66 +4,107 @@
 {% block conteudo %}
 <div class="container my-5">
 
-  <h2 class="text-center mb-4 fw-bold">Lista de Shows</h2>
+    <h2 class="text-center mb-4 fw-bold">Lista de Shows</h2>
 
-  <div class="row g-4">
-
-    {% for show in object_list %}
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-
-        <!-- Foto -->
-        {% if show.foto_show %}
-          <img src="{{ show.foto_show.url }}" 
-               class="card-img-top" 
-               style="height: 200px; object-fit: cover;"
-               alt="Foto do show {{ show.nome }}">
-        {% else %}
-          <img src="{% static 'img/sem-foto.png' %}" 
-               class="card-img-top" 
-               style="height: 200px; object-fit: cover;"
-               alt="Sem foto">
-        {% endif %}
-
-        <!-- Conteúdo -->
-        <div class="card-body">
-
-          <h5 class="card-title text-center fw-bold">{{ show.nome }}</h5>
-
-          <p class="mb-1"><strong>Cantor:</strong> 
-            {{ show.cantor.perfil_cantor.nome_artistico }}
-          </p>
-          <p class="mb-1"><strong>Local:</strong> {{ show.local }}</p>
-          <p class="mb-1"><strong>Data:</strong> {{ show.data }}</p>
-          <p class="mb-1"><strong>Hora:</strong> {{ show.hora }}</p>
-          <p class="mb-1"><strong>Tipo de Show:</strong> {{ show.tipo_show }}</p>
-
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-8">
+            <form method="GET" class="row g-3 align-items-end">
+                
+                <div class="col-md-5">
+                    <label for="cantor_busca" class="form-label fw-bold">Buscar Cantor/Artista:</label>
+                    <input 
+                        type="text" 
+                        id="cantor_busca" 
+                        name="cantor" 
+                        class="form-control"
+                        placeholder="Nome artístico..."
+                        value="{{ filtros_aplicados.cantor|default:'' }}"
+                    >
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="ordenar_por" class="form-label fw-bold">Ordenar por:</label>
+                    <select id="ordenar_por" name="ordenar_por" class="form-select">
+                        <option value="" {% if not filtros_aplicados.ordenar_por %}selected{% endif %}>
+                            Próximos Shows (Data)
+                        </option>
+                        <option value="cantor_asc" {% if filtros_aplicados.ordenar_por == 'cantor_asc' %}selected{% endif %}>
+                            Cantor (A-Z)
+                        </option>
+                        <option value="local_asc" {% if filtros_aplicados.ordenar_por == 'local_asc' %}selected{% endif %}>
+                            Local (A-Z)
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="col-md-3 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                    {% if filtros_aplicados.cantor or filtros_aplicados.ordenar_por %}
+                        <a href="{% url 'ver-show' %}" class="btn btn-outline-secondary btn-sm">Limpar Filtros</a>
+                    {% endif %}
+                    
+                </div>
+            </form>
         </div>
-
-        <!-- Rodapé com botões -->
-        <div class="card-footer text-center bg-white">
-
-          {% if user.is_authenticated and request.user == show.cantor %}
-            <a href="{% url 'editar-show' show.id %}" class="btn btn-warning btn-sm me-2">
-              Editar
-            </a>
-            <a href="{% url 'excluir-show' show.id %}" class="btn btn-danger btn-sm">
-              Excluir
-            </a>
-          {% endif %}
-
-        </div>
-
-      </div>
     </div>
-    {% empty %}
-      <div class="col-12 text-center text-muted">
-        Nenhum show encontrado.
-      </div>
-    {% endfor %}
+    <div class="row g-4">
 
-  </div>
+        {% for show in object_list %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+
+                {% if show.foto_show %}
+                    <img src="{{ show.foto_show.url }}" 
+                        class="card-img-top" 
+                        style="height: 200px; object-fit: cover;"
+                        alt="Foto do show {{ show.nome }}">
+                {% else %}
+                    <img src="{% static 'img/sem-foto.png' %}" 
+                        class="card-img-top" 
+                        style="height: 200px; object-fit: cover;"
+                        alt="Sem foto">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title text-center fw-bold">{{ show.nome }}</h5>
+
+                    <p class="mb-1"><strong>Cantor:</strong> 
+                        {{ show.cantor.perfil_cantor.nome_artistico }}
+                    </p>
+                    <p class="mb-1"><strong>Local:</strong> {{ show.local }}</p>
+                    <p class="mb-1"><strong>Data:</strong> {{ show.data }}</p>
+                    <p class="mb-1"><strong>Hora:</strong> {{ show.hora }}</p>
+                    <p class="mb-1"><strong>Tipo de Show:</strong> {{ show.tipo_show }}</p>
+
+                </div>
+
+                <div class="card-footer text-center bg-white">
+
+                    {% if user.is_authenticated and request.user == show.cantor %}
+                        <a href="{% url 'editar-show' show.id %}" class="btn btn-warning btn-sm me-2">
+                            Editar
+                        </a>
+                        <a href="{% url 'excluir-show' show.id %}" class="btn btn-danger btn-sm">
+                            Excluir
+                        </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted">
+            {% if filtros_aplicados.cantor or filtros_aplicados.ordenar_por %}
+                Nenhum show encontrado que corresponda aos filtros aplicados.
+            {% else %}
+                Nenhum show encontrado.
+            {% endif %}
+        </div>
+        {% endfor %}
+
+    </div>
 
 </div>
 {% endblock %}
-

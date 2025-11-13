@@ -10,6 +10,8 @@ from django.contrib.auth.models import User, Group
 from .forms import UsuarioCadastroForm
 from django.shortcuts import get_object_or_404
 
+from django.db.models import Q 
+
 
 class IndexView(TemplateView):
     template_name = "paginas/index.html"
@@ -172,6 +174,8 @@ class ShowUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self, queryset=None):
         obj = get_object_or_404(Show, pk=self.kwargs['pk'], cantor=self.request.user)
         return obj
+    
+    
 
 ##################################################
 #DELETE
@@ -244,9 +248,47 @@ class PerfilCantorList(ListView):
     model = PerfilCantor
     template_name = 'ver/perfil.html'
     
+# Seu arquivo views.py
+# <<< CERTIFIQUE-SE QUE ESTA LINHA ESTÁ NO TOPO
+
+# Seu views.py (apenas o trecho da ShowList)
+
+
+
 class ShowList(ListView):
     model = Show
     template_name = 'ver/show.html'
+    
+    def get_queryset(self):
+        # 1. Ordenação Padrão: Pela data e hora mais próximas
+        queryset = super().get_queryset().order_by('data', 'hora')
+        
+        cantor_busca = self.request.GET.get('cantor')
+        ordenar_por = self.request.GET.get('ordenar_por')
+
+        # 2. FILTRO POR CANTOR (Nome Artístico) 🎤
+        if cantor_busca:
+            # CORREÇÃO APLICADA: Usando cantor__perfil_cantor (com underscore)
+            queryset = queryset.filter(
+                Q(cantor__perfil_cantor__nome_artistico__icontains=cantor_busca) |
+                Q(cantor__username__icontains=cantor_busca)
+            )
+
+        # 3. ORDENAÇÃO 🔠
+        if ordenar_por == 'cantor_asc':
+            # CORREÇÃO APLICADA: Usando cantor__perfil_cantor (com underscore)
+            queryset = queryset.order_by('cantor__perfil_cantor__nome_artistico')
+        elif ordenar_por == 'local_asc':
+            queryset = queryset.order_by('local__nome')
+        
+        return queryset
+
+    # ... get_context_data permanece igual
+    def get_context_data(self, **kwargs):
+        # Passa os parâmetros GET para o template para manter o formulário preenchido
+        context = super().get_context_data(**kwargs)
+        context['filtros_aplicados'] = self.request.GET
+        return context
 
 ###########################################
 

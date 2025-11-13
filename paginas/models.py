@@ -1,10 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# models.py
+
+# ... (Seus imports)
+
 class Midia(models.Model):
-    foto_perfil =  models.URLField(max_length=255)
+    # Relacionamento de Um-Para-Um com PerfilCantor
+    # Se um PerfilCantor for deletado, as mídias associadas também serão.
+    perfil = models.OneToOneField(
+        'PerfilCantor', 
+        on_delete=models.CASCADE, 
+        related_name='midias'
+    )
+    foto_perfil = models.URLField(max_length=255)
     divulgacao_cantor = models.URLField(max_length=255)
     divulgacao_show = models.URLField(max_length=255)
+    
+    def __str__(self):
+        # Para que apareça o nome do cantor no Admin/Debug
+        return f"Mídias de {self.perfil.nome_artistico}"
+
+# ... (Restante dos seus modelos)
     
 
 class Local(models.Model):

@@ -32,7 +32,13 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'inserir-show' %}">Cadastro dos Shows</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'editar-perfil' %}">Atualização do Perfil Cantor</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'sobre' %}">Sobre Nós</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'sair' %}">Logout</a></li>
+           <li class="nav-item">
+    <form method="POST" action="{% url 'sair' %}" style="display: inline;">
+        {% csrf_token %} <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer; padding: 0;">
+            Logout
+        </button>
+    </form>
+</li>
           {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Início</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'ver-show' %}">Shows</a></li>
@@ -49,102 +55,99 @@
   <!-- Conteúdo -->
   <main class="flex-grow-1 container my-5">
    
-      {% block conteudo %}
+   {% block conteudo %}
 <div class="container mt-5">
-  <div class="row justify-content-center g-4">
+    <h1 class="text-center mb-5 fw-bold text-dark">Bem-vindo ao ShowPorAi</h1>
 
-    <!-- Card Início -->
-    <div class="col-md-4">
-      <a href="{% url 'index' %}" class="text-decoration-none">
-        <div class="card shadow h-100 text-center p-4">
-          <h5 class="card-title text-dark fw-bold">Início</h5>
+    <div class="row justify-content-center g-5">
+
+        <div class="col-md-6">
+            <a href="{% url 'ver-show' %}" class="text-decoration-none">
+                <div class="card bg-info text-white shadow-lg h-100 p-4 border-0 rounded-4 highlight-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-ticket-alt fa-3x mb-3"></i> <h2 class="card-title fw-bolder mb-3">🎵 Shows Imperdíveis</h2>
+                        <p class="card-text fs-5">
+                            Descubra os próximos eventos musicais perto de você.
+                            Filtre por artista, local e data para não perder nenhum show!
+                        </p>
+                        <hr class="mx-auto w-50 border-white">
+                        <span class="btn btn-light btn-lg mt-3 fw-bold">Ver Todos os Shows &raquo;</span>
+                    </div>
+                </div>
+            </a>
         </div>
-      </a>
-    </div>
 
-    <!-- Card Shows -->
-    <div class="col-md-4">
-      <a href="{% url 'ver-show' %}" class="text-decoration-none">
-        <div class="card shadow h-100 text-center p-4">
-          <h5 class="card-title text-dark fw-bold">Shows</h5>
+        <div class="col-md-6">
+            <a href="{% url 'ver-perfil' %}" class="text-decoration-none">
+                <div class="card bg-dark text-white shadow-lg h-100 p-4 border-0 rounded-4 highlight-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-microphone-alt fa-3x mb-3"></i> <h2 class="card-title fw-bolder mb-3">🎤 Perfis de Cantores</h2>
+                        <p class="card-text fs-5">
+                            Conheça os perfis de todos os artistas cadastrados.
+                            Veja seus gêneros musicais, descrições e próximos shows.
+                        </p>
+                        <hr class="mx-auto w-50 border-white">
+                        <span class="btn btn-light btn-lg mt-3 fw-bold">Ver Artistas &raquo;</span>
+                    </div>
+                </div>
+            </a>
         </div>
-      </a>
-    </div>
 
-    <!-- Card Cantores -->
-    <div class="col-md-4">
-      <a href="{% url 'ver-perfil' %}" class="text-decoration-none">
-        <div class="card shadow h-100 text-center p-4">
-          <h5 class="card-title text-dark fw-bold">Cantores</h5>
+    </div>
+    
+    <h3 class="text-center mt-5 mb-4 fw-bold">Outras Opções</h3>
+
+    <div class="row justify-content-center g-4">
+
+        {% if request.user.is_authenticated %}
+
+            <div class="col-md-3">
+                <a href="{% url 'inserir-show' %}" class="text-decoration-none">
+                    <div class="card shadow h-100 text-center p-3 small-card">
+                        <h5 class="card-title text-dark fw-bold">Cadastro de Shows</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="{% url 'editar-perfil' %}" class="text-decoration-none">
+                    <div class="card shadow h-100 text-center p-3 small-card">
+                        <h5 class="card-title text-dark fw-bold">Atualizar Perfil</h5>
+                    </div>
+                </a>
+            </div>
+
+        {% else %}
+            
+            <div class="col-md-3">
+                <a href="{% url 'registrar' %}" class="text-decoration-none">
+                    <div class="card shadow h-100 text-center p-3 small-card">
+                        <h5 class="card-title text-dark fw-bold">Registrar-se</h5>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="{% url 'login' %}" class="text-decoration-none">
+                    <div class="card shadow h-100 text-center p-3 small-card">
+                        <h5 class="card-title text-dark fw-bold">Login</h5>
+                    </div>
+                </a>
+            </div>
+
+        {% endif %}
+        
+        <div class="col-md-3">
+            <a href="{% url 'sobre' %}" class="text-decoration-none">
+                <div class="card shadow h-100 text-center p-3 small-card">
+                    <h5 class="card-title text-dark fw-bold">Sobre Nós</h5>
+                </div>
+            </a>
         </div>
-      </a>
+
     </div>
-
-    {% if request.user.is_authenticated %}
-
-      <!-- Cadastro dos Shows -->
-      <div class="col-md-4">
-        <a href="{% url 'inserir-show' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Cadastro dos Shows</h5>
-          </div>
-        </a>
-      </div>
-
-      <!-- Cadastro Perfil Cantor -->
-      <div class="col-md-4">
-        <a href="{% url 'inserir-perfil' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Cadastro Perfil Cantor</h5>
-          </div>
-        </a>
-      </div>
-
-      <!-- Sobre nós -->
-      <div class="col-md-4">
-        <a href="{% url 'sobre' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Sobre Nós</h5>
-          </div>
-        </a>
-      </div>
-
-    {% else %}
-
-      <!-- Sobre nós -->
-      <div class="col-md-4">
-        <a href="{% url 'sobre' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Sobre Nós</h5>
-          </div>
-        </a>
-      </div>
-
-      <!-- Registrar -->
-      <div class="col-md-4">
-        <a href="{% url 'registrar' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Registrar</h5>
-          </div>
-        </a>
-      </div>
-
-      <!-- Login -->
-      <div class="col-md-4">
-        <a href="{% url 'login' %}" class="text-decoration-none">
-          <div class="card shadow h-100 text-center p-4">
-            <h5 class="card-title text-dark fw-bold">Login</h5>
-          </div>
-        </a>
-      </div>
-
-    {% endif %}
-
-  </div>
 </div>
-
-
-    {% endblock %}
+{% endblock %}
   </main>
 
   <!-- Rodapé -->
