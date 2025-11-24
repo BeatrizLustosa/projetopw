@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# models.py
 
-# ... (Seus imports)
 
 class Midia(models.Model):
     # Relacionamento de Um-Para-Um com PerfilCantor
@@ -46,7 +44,8 @@ class PerfilCantor(models.Model):
     telefone = models.CharField(max_length=20)
 
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil_cantor')
-    
+    ordering = ["nome_artistico"]
+
 class Show(models.Model):
     nome = models.CharField(max_length=100)
     data = models.DateField() 

@@ -247,11 +247,22 @@ class TipoShowList(LoginRequiredMixin, ListView):
 class PerfilCantorList(ListView):
     model = PerfilCantor
     template_name = 'ver/perfil.html'
-    
-# Seu arquivo views.py
-# <<< CERTIFIQUE-SE QUE ESTA LINHA ESTÁ NO TOPO
 
-# Seu views.py (apenas o trecho da ShowList)
+    def get_queryset(self):
+        qs = PerfilCantor.objects.all()
+
+        nome = self.request.GET.get("nome")
+
+        if nome:
+            qs = qs.filter(nome_artistico__icontains=nome)
+
+        # ✔ Sempre ordenar alfabeticamente
+        return qs.order_by("nome_artistico")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nome"] = self.request.GET.get("nome", "")
+        return context
 
 
 

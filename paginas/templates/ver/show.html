@@ -3,6 +3,7 @@
 
 {% block conteudo %}
 <div class="container my-5">
+<h2 id="tituloDigitando" class="text-center mb-4 fw-bold"></h2>
 
     <h2 class="text-center mb-4 fw-bold">Lista de Shows</h2>
 
@@ -51,7 +52,8 @@
 
         {% for show in object_list %}
         <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm fade-card">
+
 
                 {% if show.foto_show %}
                     <img src="{{ show.foto_show.url }}" 
@@ -107,4 +109,109 @@
     </div>
 
 </div>
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+$(document).ready(function () {
+
+    /* ----------------------------------------------
+       1) Efeito de “digitação” no título
+    ---------------------------------------------- */
+    function typeWriter(elemento, texto, i = 0) {
+        if (i < texto.length) {
+            $(elemento).html($(elemento).html() + texto.charAt(i));
+            setTimeout(() => typeWriter(elemento, texto, i + 1), 55);
+        }
+    }
+    typeWriter("#tituloDigitando", "🎵 Lista de Shows Disponíveis");
+
+
+    /* ----------------------------------------------
+       2) Fade-in suave dos cards ao rolar a página
+    ---------------------------------------------- */
+    function animarCards() {
+        $(".fade-card").each(function () {
+            let topo = $(this).offset().top;
+            let scroll = $(window).scrollTop();
+            let altura = $(window).height();
+
+            if (scroll > topo - altura + 80) {
+                $(this).animate({ opacity: 1, marginTop: "0" }, 600);
+            }
+        });
+    }
+
+    $(".fade-card").css({ opacity: 0, marginTop: "40px" });
+    animarCards();
+    $(window).scroll(animarCards);
+
+
+    /* ----------------------------------------------
+       3) Animação ao passar o mouse nos cards
+    ---------------------------------------------- */
+    $(".fade-card").hover(
+        function () {
+            $(this).css({
+                "transform": "scale(1.04)",
+                "transition": "0.3s",
+                "box-shadow": "0px 15px 25px rgba(0,0,0,0.2)"
+            });
+        },
+        function () {
+            $(this).css({
+                "transform": "scale(1)",
+                "box-shadow": "0px 0px 0px rgba(0,0,0,0)"
+            });
+        }
+    );
+
+
+    /* ----------------------------------------------
+       4) Destaque visual quando filtros são aplicados
+    ---------------------------------------------- */
+    const url = new URL(window.location.href);
+
+    if (url.searchParams.get("cantor") || url.searchParams.get("ordenar_por")) {
+        $("form").addClass("border border-primary rounded p-3 animate-filter");
+        
+        setTimeout(() => {
+            $(".animate-filter").css("background", "#f0f8ff");
+        }, 100);
+    }
+
+
+    /* ----------------------------------------------
+       5) Botão de “voltar ao topo”
+    ---------------------------------------------- */
+    $("body").append(`
+        <button id="voltarTopo"
+                class="btn btn-danger fw-bold"
+                style="
+                    position: fixed;
+                    bottom: 25px;
+                    right: 25px;
+                    padding: 12px 18px;
+                    display: none;
+                    border-radius: 50px;
+                ">
+            ↑ Topo
+        </button>
+    `);
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 180) {
+            $("#voltarTopo").fadeIn();
+        } else {
+            $("#voltarTopo").fadeOut();
+        }
+    });
+
+    $("#voltarTopo").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 600);
+    });
+
+});
+</script>
+
 {% endblock %}

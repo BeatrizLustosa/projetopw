@@ -2,62 +2,101 @@
 {% load static %}
 
 {% block conteudo %}
-<div class="container my-5">
+
+<div class="container my-4">
+
+    <!-- 🔍 FILTRO -->
+    <div class="card shadow-sm mb-4 p-3">
+        <form method="GET" class="row g-3">
+
+            <div class="col-md-8">
+                <label class="form-label fw-bold">Nome artístico</label>
+                <input type="text" name="nome" value="{{ nome }}" class="form-control" placeholder="Buscar por nome...">
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-primary w-100">Filtrar</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- 🔥 LISTA DE PERFIS -->
     <div class="row g-4">
-        
         {% for perfilcantor in object_list %}
         <div class="col-md-4">
-            <div class="card h-100 shadow">
+            <div class="card h-100 shadow cantor-card">
 
                 {% if perfilcantor.foto %}
                     <img src="{{ perfilcantor.foto.url }}" 
-                         class="card-img-top" 
-                         alt="Foto de {{ perfilcantor.nome_artistico }}"
+                         class="card-img-top"
                          style="height: 200px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'img/sem-foto.png' %}" 
-                         class="card-img-top" 
-                         alt="Sem foto"
+                    <img src="{% static 'img/sem-foto.png' %}"
+                         class="card-img-top"
                          style="height: 200px; object-fit: cover;">
                 {% endif %}
 
                 <div class="card-body d-flex flex-column">
-
                     <h5 class="card-title text-center">{{ perfilcantor.nome_artistico }}</h5>
 
-                    <p class="card-text">
-                        <strong>Gênero:</strong> {{ perfilcantor.genero_musical }}
-                    </p>
+                    <p><strong>Telefone:</strong> {{ perfilcantor.telefone }}</p>
 
-                    <p class="card-text">
-                        <strong>Telefone:</strong> {{ perfilcantor.telefone }}
-                    </p>
+                    <p>{{ perfilcantor.descricao|truncatewords:20 }}</p>
 
-                    <p class="card-text">
-                        {{ perfilcantor.descricao|truncatewords:20 }}
-                    </p>
-
-                    <!-- BOTÕES EXIBIDOS SOMENTE PARA O DONO DO PERFIL -->
-                  <div class="mt-auto d-flex justify-content-center gap-2">
-                     {% if user.is_authenticated and request.user == perfilcantor.usuario %}
+                    {% if user.is_authenticated and request.user == perfilcantor.usuario %}
+                    <div class="mt-auto d-flex justify-content-center">
                         <a href="{% url 'editar-perfil' %}" class="btn btn-warning btn-sm">Editar</a>
-                       
-                         {% endif %}
                     </div>
-
-
+                    {% endif %}
                 </div>
+
             </div>
         </div>
-
         {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info text-center">
-                Nenhum perfil encontrado.
-            </div>
+        <div class="col-12 text-center text-muted">
+            Nenhum cantor encontrado.
         </div>
         {% endfor %}
-
     </div>
 </div>
+
+<!-- ✨ jQuery para efeito bonito -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".cantor-card").hide().fadeIn(400);
+    });
+</script>
+
 {% endblock %}
+<script>
+// Espera o DOM carregar
+$(document).ready(function () {
+
+    // ✨ Animação para os cards aparecerem
+    $(".cantor-card").css("opacity", 0).each(function (i) {
+        $(this).delay(i * 120).animate({ opacity: 1 }, 400);
+    });
+
+    // 🔍 Destaque no campo de busca quando o usuário digitar
+    $("input[name='nome']").on("input", function () {
+        $(this).addClass("border-primary shadow");
+    });
+
+    // 🔥 Efeito hover nos cards
+    $(".cantor-card").hover(
+        function () {
+            $(this).addClass("shadow-lg").css("transform", "scale(1.02)");
+        },
+        function () {
+            $(this).removeClass("shadow-lg").css("transform", "scale(1)");
+        }
+    );
+
+    // 📌 Scroll suave após enviar o filtro
+    $("form").on("submit", function () {
+        $("html, body").animate({ scrollTop: $(".container").offset().top - 20 }, 400);
+    });
+});
+</script>
