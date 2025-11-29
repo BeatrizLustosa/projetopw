@@ -55,18 +55,6 @@
             <div class="card h-100 shadow-sm fade-card">
 
 
-                {% if show.foto_show %}
-                    <img src="{{ show.foto_show.url }}" 
-                        class="card-img-top" 
-                        style="height: 200px; object-fit: cover;"
-                        alt="Foto do show {{ show.nome }}">
-                {% else %}
-                    <img src="{% static 'img/sem-foto.png' %}" 
-                        class="card-img-top" 
-                        style="height: 200px; object-fit: cover;"
-                        alt="Sem foto">
-                {% endif %}
-
                 <div class="card-body">
 
                     <h5 class="card-title text-center fw-bold">{{ show.nome }}</h5>
@@ -124,7 +112,7 @@ $(document).ready(function () {
             setTimeout(() => typeWriter(elemento, texto, i + 1), 55);
         }
     }
-    typeWriter("#tituloDigitando", "🎵 Lista de Shows Disponíveis");
+    typeWriter("#tituloDigitando", "Lista de Shows Disponíveis");
 
 
     /* ----------------------------------------------
